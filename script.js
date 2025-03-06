@@ -1,12 +1,20 @@
 //your JS code here. If required.
-document.getElementById("btn").addEventListener("click", async function() {
-            const message = document.getElementById("text").value;
-            const delay = parseInt(document.getElementById("delay").value);
-            const output = document.getElementById("output");
-            
-            output.innerHTML = "Waiting...";
-            
-            await new Promise(resolve => setTimeout(resolve, delay));
-            
-            output.innerHTML = message;
-        });
+const form = document.getElementById("delay-form");
+const output = document.getElementById("output");
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const text = document.getElementById("text").value;
+    const delay = parseInt(document.getElementById("delay").value);
+
+    await delayMessage(text, delay);
+});
+
+function delayMessage(text, delay) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            output.innerText = text;
+            resolve();
+        }, delay);
+    });
+}
